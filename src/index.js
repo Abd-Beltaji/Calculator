@@ -1,17 +1,51 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./style.css";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function App() {
+  const [text, setText] = React.useState("");
+  const buttonContent = [
+    "1",
+    "2",
+    "3",
+    "=",
+    "4",
+    "5",
+    "6",
+    "/",
+    "7",
+    "8",
+    "9",
+    "*",
+    "C",
+    "0",
+    "+",
+    "-",
+  ];
+  return (
+    <div className="container">
+      <div className="screen">
+        <input className="result" type="text" disabled value={text} />
+      </div>
+      <div className="btns">
+        {buttonContent.map((e, index) => (
+          <span
+            className={isNaN(parseInt(e)) ? "operation" : "number"}
+            key={index}
+            onClick={(event) => {
+              if (event.target.textContent === "C")
+                setText((prevText) => prevText.slice(0, -1));
+              else if (event.target.textContent === "=")
+                setText(eval(text).toString());
+              else setText((prev) => prev + event.target.textContent);
+            }}
+          >
+            {e}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(<App />, document.getElementById("root"));
