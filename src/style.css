@@ -76,6 +76,6 @@
   background-color: #ffffff4d;
 }
 
-.btns .operation {
+.btns [type='operation']  {
   color: #ffa800;
 }
